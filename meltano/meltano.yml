@@ -1,0 +1,122 @@
+version: 1
+default_environment: dev
+project_id: cc4aa006-4367-4c1b-89b1-ff3bfb4bc310
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-postgres
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-postgres.git
+    config:
+      host: localhost
+      port: 5432
+      user: northwind_user
+      password: thewindisblowing
+      database: northwind
+      filter_schemas:
+      - public
+      default_replication_method: FULL_TABLE
+
+
+  - name: tap-csv-details
+    inherit_from: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: orders_details
+        path: $HOME/LD_ED_JULIAPEREIRA/data/order_details.csv
+        keys:
+        - product_id
+        - order_id
+
+  - name: tap-csv-all
+    inherit_from: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: order_details
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/csv/$CURRENT_DATE/orders_details.csv
+        keys:
+        - order_id
+        - product_id
+      - entity: categories
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-categories.csv
+        keys:
+        - category_id
+      - entity: customers
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-customers.csv
+        keys:
+        - customer_id
+      - entity: employees
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-employees.csv
+        keys:
+        - employee_id
+      - entity: employee_territories
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-employee_territories.csv
+        keys:
+        - employee_id
+      - entity: orders
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-orders.csv
+        keys:
+        - order_id
+      - entity: products
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-products.csv
+        keys:
+        - product_id
+      - entity: region
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-region.csv
+        keys:
+        - region_id
+      - entity: shippers
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-shippers.csv
+        keys:
+        - shipper_id
+      - entity: suppliers
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-suppliers.csv
+        keys:
+        - supplier_id
+      - entity: territories
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-territories.csv
+        keys:
+        - territory_id
+      - entity: us_states
+        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-us_states.csv
+        keys:
+        - state_id
+
+
+  loaders:
+  - name: target-csv-details
+    namespace: target_csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    executable: target-csv
+    config:
+      destination_path: $HOME/LD_ED_JULIAPEREIRA/data/extract/csv/$CURRENT_DATE
+
+  - name: target-csv-tables
+    namespace: target_csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    executable: target-csv
+    config:
+      destination_path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE
+
+
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      database: northwind_dw
+      user: northwind_user
+      host: localhost
+      port: 5433
+      password: thewindisblowind
+      default_target_schema: public
+      interpret_content_encoding: true
+      sanitize_null_text_characters: true
