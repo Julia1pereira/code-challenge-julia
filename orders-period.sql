@@ -1,0 +1,3 @@
+SELECT * 
+FROM orders
+WHERE order_date BETWEEN '1997-01-01' AND '1997-12-31';
