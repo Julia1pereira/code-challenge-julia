@@ -28,7 +28,7 @@ plugins:
     config:
       files:
       - entity: orders_details
-        path: $HOME/LD_ED_JULIAPEREIRA/data/order_details.csv
+        path: $HOME/code-challenge-julia/data/order_details.csv
         keys:
         - product_id
         - order_id
@@ -40,52 +40,52 @@ plugins:
     config:
       files:
       - entity: order_details
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/csv/$CURRENT_DATE/orders_details.csv
+        path: $HOME/code-challenge-julia/data/extract/csv/$CURRENT_DATE/orders_details.csv
         keys:
         - order_id
         - product_id
       - entity: categories
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-categories.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-categories.csv
         keys:
         - category_id
       - entity: customers
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-customers.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-customers.csv
         keys:
         - customer_id
       - entity: employees
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-employees.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-employees.csv
         keys:
         - employee_id
       - entity: employee_territories
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-employee_territories.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-employee_territories.csv
         keys:
         - employee_id
       - entity: orders
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-orders.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-orders.csv
         keys:
         - order_id
       - entity: products
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-products.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-products.csv
         keys:
         - product_id
       - entity: region
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-region.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-region.csv
         keys:
         - region_id
       - entity: shippers
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-shippers.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-shippers.csv
         keys:
         - shipper_id
       - entity: suppliers
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-suppliers.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-suppliers.csv
         keys:
         - supplier_id
       - entity: territories
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-territories.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-territories.csv
         keys:
         - territory_id
       - entity: us_states
-        path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE/public-us_states.csv
+        path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE/public-us_states.csv
         keys:
         - state_id
 
@@ -97,7 +97,7 @@ plugins:
     pip_url: git+https://github.com/MeltanoLabs/target-csv.git
     executable: target-csv
     config:
-      destination_path: $HOME/LD_ED_JULIAPEREIRA/data/extract/csv/$CURRENT_DATE
+      destination_path: $HOME/code-challenge-julia/data/extract/csv/$CURRENT_DATE
 
   - name: target-csv-tables
     namespace: target_csv
@@ -105,7 +105,7 @@ plugins:
     pip_url: git+https://github.com/MeltanoLabs/target-csv.git
     executable: target-csv
     config:
-      destination_path: $HOME/LD_ED_JULIAPEREIRA/data/extract/postgres/$CURRENT_DATE
+      destination_path: $HOME/code-challenge-julia/data/extract/postgres/$CURRENT_DATE
 
 
   - name: target-postgres
